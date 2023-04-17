@@ -4,15 +4,18 @@
  */
 package practica17_uf4_pablojimenez;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ausias
  */
 public class Practica17_UF4_PabloJimenez {
 
-    /**
-     * @param args the command line arguments
-     */
+    private static ArrayList<Espectacle> espectacles = new ArrayList<>();
+    private static ArrayList<Recinte> recintes = new ArrayList<>();
+    private static ArrayList<Representacio> representacions = new ArrayList<>();
+    
     public static void main(String[] args) {
         // TODO code application logic here
     }
