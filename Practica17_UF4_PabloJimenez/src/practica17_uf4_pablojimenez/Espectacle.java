@@ -9,5 +9,13 @@ package practica17_uf4_pablojimenez;
  * @author ausias
  */
 public class Espectacle {
+    String nom;
+    TipusEspectacle tipus;
+
+    public Espectacle(String nom, TipusEspectacle tipus) {
+        this.nom = nom;
+        this.tipus = tipus;
+    }
+    
     
 }

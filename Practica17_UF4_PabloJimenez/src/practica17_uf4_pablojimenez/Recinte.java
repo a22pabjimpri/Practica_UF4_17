@@ -9,5 +9,6 @@ package practica17_uf4_pablojimenez;
  * @author ausias
  */
 public class Recinte {
-    
+    String nom;
+    TipusEspectacle tipus;
 }
