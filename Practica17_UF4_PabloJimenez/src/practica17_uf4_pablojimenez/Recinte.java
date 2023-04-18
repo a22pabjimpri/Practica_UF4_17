@@ -12,18 +12,18 @@ public class Recinte {
     
     String nom;
     String tipus;
-    protected static int numFiles;
-    protected static int numColumnes;
-    protected static int llotga;
+    int numFiles;
+    int numColumnes;
+    int llotja;
     
         
 
-    public Recinte(String nom, String tipus, int numFiles, int numColumnes, int llotga) {
+    public Recinte(String nom, String tipus, int numFiles, int numColumnes, int llotja) {
         this.nom = nom;
         this.tipus = tipus;
         this.numFiles = numFiles;
         this.numColumnes = numColumnes;
-        this.llotga = llotga;
+        this.llotja = llotja;
     }
 
     public int getNumFiles() {
@@ -42,12 +42,12 @@ public class Recinte {
         this.numColumnes = numColumnes;
     }
 
-    public int getLlotga() {
-        return llotga;
+    public int getLlotja() {
+        return llotja;
     }
 
-    public void setLlotga(int llotga) {
-        this.llotga = llotga;
+    public void setLlotja(int llotja) {
+        this.llotja = llotja;
     }
     
     public String getNom() {

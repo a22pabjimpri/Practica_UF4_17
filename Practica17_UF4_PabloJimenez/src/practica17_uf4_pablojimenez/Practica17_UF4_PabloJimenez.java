@@ -78,7 +78,7 @@ public class Practica17_UF4_PabloJimenez {
         String nom = "";
         int numFiles;
         int numColumnes;
-        int llotga;
+        int llotja;
         Recinte r = null;
         int opcio;
         System.out.print("Nom del recinte: ");
@@ -102,9 +102,9 @@ public class Practica17_UF4_PabloJimenez {
 
         numFiles = Utils.LlegirInt("Quantes files te aquest recinte: ");
         numColumnes = Utils.LlegirInt("Quantes columnes te aquest recinte: ");
-        llotga = Utils.LlegirInt("Quantes llotges te aquest recinte: ");
+        llotja = Utils.LlegirInt("Quantes llotges te aquest recinte: ");
 
-        r = new Recinte(nom, recinte, numFiles, numColumnes, llotga);
+        r = new Recinte(nom, recinte, numFiles, numColumnes, llotja);
         recintes.add(r);
     }
 
@@ -184,8 +184,12 @@ public class Practica17_UF4_PabloJimenez {
         System.out.println("Quin dia? ");
         String dia = scan.next();
         
-        rep = new Representacio(nom ,es, r, dia);
+        rep = new Representacio(nom,es, r, dia);
 
+    }
+    
+    public static void ferReserva(){
+        
     }
 
 }
