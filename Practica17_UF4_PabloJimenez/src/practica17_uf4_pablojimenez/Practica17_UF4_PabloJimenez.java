@@ -243,7 +243,7 @@ public class Practica17_UF4_PabloJimenez {
 
         System.out.println("S'ha reservat correctament.");
     } else {
-        System.out.println("No s'ha trobat cap representaciÃ³ amb aquest nom.");
+        System.out.println("No s'ha trobat cap representacio amb aquest nom.");
     }
 }
 
