@@ -32,7 +32,7 @@ public class Practica17_UF4_PabloJimenez {
                                4. Fer una reserva 
                                5. Llistar espectacles per data
                                6. Sortir""");
-            int opcio = Utils.LlegirInt("Selecciona una opciÃ³: ");
+            int opcio = Utils.LlegirInt("Selecciona una opciÃƒÂ³: ");
 
             switch (opcio) {
                 case 1 -> {
@@ -58,7 +58,10 @@ public class Practica17_UF4_PabloJimenez {
                     //Fer reserva
                 }
                 case 5 -> {
-                    //Llistar espectacles
+                    if (!espectacle) {
+                        System.out.println("No hi ha espectacles disponibles");
+                    }
+                    llistarEspectacles();
                 }
                 case 6 -> {
                     sortir = true;
@@ -76,8 +79,7 @@ public class Practica17_UF4_PabloJimenez {
     public static void altaRecinte() {
         String recinte = "";
         String nom = "";
-        int numFiles;
-        int numColumnes;
+        int localitats;
         int llotja;
         Recinte r = null;
         int opcio;
@@ -100,11 +102,10 @@ public class Practica17_UF4_PabloJimenez {
             recinte = "Palau d'esports";
         }
 
-        numFiles = Utils.LlegirInt("Quantes files te aquest recinte: ");
-        numColumnes = Utils.LlegirInt("Quantes columnes te aquest recinte: ");
+        localitats = Utils.LlegirInt("Quantes files te aquest recinte: ");
         llotja = Utils.LlegirInt("Quantes llotges te aquest recinte: ");
 
-        r = new Recinte(nom, recinte, numFiles, numColumnes, llotja);
+        r = new Recinte(nom, recinte, localitats, llotja);
         recintes.add(r);
     }
 
@@ -149,10 +150,10 @@ public class Practica17_UF4_PabloJimenez {
         Recinte r = null;
         Representacio rep = null;
         boolean encontrado = false;
-        
+
         System.out.print("Nom de la representacio: ");
         String nom = scan.next();
-        
+
         System.out.print("Quin espectacle? ");
         do {
             String espectacle = scan.next();
@@ -165,9 +166,9 @@ public class Practica17_UF4_PabloJimenez {
                 }
             }
         } while (!encontrado);
-        
+
         encontrado = false;
-        
+
         System.out.print("Quin recinte? ");
         do {
             String recinte = scan.next();
@@ -180,16 +181,75 @@ public class Practica17_UF4_PabloJimenez {
                 }
             }
         } while (!encontrado);
-        
+
         System.out.println("Quin dia? ");
         String dia = scan.next();
-        
-        rep = new Representacio(nom,es, r, dia);
+
+        rep = new Representacio(nom, es, r, dia);
 
     }
+
+   public static void ferReserva() {
+    Representacio rep = null;
+    boolean encontrado = false;
+    int opcio;
+
+    System.out.print("Quina representacio? ");
+    do {
+        String nom = scan.next();
+        for (int i = 0; i < representacions.size(); i++) {
+            if (representacions.get(i).getNom().equals(nom)) {
+                rep = representacions.get(i);
+                encontrado = true;
+            } else if (!encontrado) {
+                System.out.println("No s'ha trobat cap espectacle amb aquest nom ");
+            }
+        }
+    } while (!encontrado);
+
     
-    public static void ferReserva(){
+    if (rep != null) {
+        int llotjesDisponibles = rep.getRecinte().getLlotja();
+        int butaquesDisponibles = rep.getRecinte().getLocalitats();
+
+        // Resto la cantidad de llotjes o localitats reservadas
+        if (!rep.getEspectacle().isButaques()) {
+            int llotja = Utils.LlegirInt("Quantes llotges vols reservar: ");
+            llotjesDisponibles -= llotja;
+        } else if (!rep.getEspectacle().isLlotges()) {
+            int localitats = Utils.LlegirInt("Quantes localitats vols reservar: ");
+            butaquesDisponibles -= localitats;
+        } else {
+            do {
+                opcio = Utils.LlegirInt("Que vols reservar: 1. Llotja 2. Localitats");
+                if (opcio == 1) {
+                    int llotja = Utils.LlegirInt("Quantes llotges vols reservar: ");
+                    llotjesDisponibles -= llotja;
+                } else if (opcio == 2) {
+                    int localitats = Utils.LlegirInt("Quantes localitats vols reservar: ");
+                    butaquesDisponibles -= localitats;
+                }
+            } while (opcio != 1 || opcio != 2);
+
+        }
+
         
+        rep.getRecinte().setLlotja(llotjesDisponibles);
+        rep.getRecinte().setLocalitats(butaquesDisponibles);
+
+        
+        int index = representacions.indexOf(rep);
+        representacions.set(index, rep);
+
+        System.out.println("S'ha reservat correctament.");
+    } else {
+        System.out.println("No s'ha trobat cap representaciÃ³ amb aquest nom.");
+    }
+}
+
+
+    public static void llistarEspectacles() {
+
     }
 
 }
