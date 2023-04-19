@@ -9,7 +9,7 @@ package practica17_uf4_pablojimenez;
  * @author ausias
  */
 public class Representacio {
-    
+
     String nom;
     Espectacle espectacle;
     Recinte recinte;
@@ -53,13 +53,24 @@ public class Representacio {
     public void setData(String data) {
         this.data = data;
     }
-    
-    
 
-    
-    
-    
-    
-    
-    
+    @Override
+    public String toString() {
+        String info = "";
+        String missatge = "";
+        if (recinte.localitats == 0 && recinte.llotja == 0) {
+            info = "No queden llotges ni localitats disponibles per aquesta representacio";
+        } else if (!espectacle.butaques) {
+            missatge = "Representacio " + nom + " dia: " + data + " llotges disponibles " + recinte.llotja;
+            info = "Per aquesta representacio només es poden reservar llotjes";
+        } else if (!espectacle.llotges) {
+            missatge = "Representacio " + nom + " dia: " + data + " butaques disponibles " + recinte.localitats;
+            info = "Per aquesta representacio només es poden reservar butaques";
+        } else {
+            info = "Per aquesta representacio es poden reservar llotges i butaques";
+            missatge = "Representacio " + nom + " dia: " + data + " butaques disponibles " + recinte.localitats + " llotges disponibles " + recinte.llotja;
+        }
+        return missatge + " " + info;
+    }
+
 }
