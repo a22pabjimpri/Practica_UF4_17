@@ -20,6 +20,10 @@ public class Practica17_UF4_PabloJimenez {
     private static ArrayList<Representacio> representacions = new ArrayList<>();
 
     public static void main(String[] args) {
+        Espectacle es = null;
+        Recinte r = null;
+        Representacio rep = null;
+        
         boolean sortir = false;
         boolean recinte = false;
         boolean espectacle = false;
@@ -36,14 +40,14 @@ public class Practica17_UF4_PabloJimenez {
 
             switch (opcio) {
                 case 1 -> {
-                    altaRecinte();
+                    r.altaRecinte();
                     recinte = true;
                 }
                 case 2 -> {
                     if (!recinte) {
                         System.out.println("Per crear un espectacle primer has de donar d'alta un recinte");
                     } else {
-                        altaEspectacle();
+                        es.altaEspectacle();
                         espectacle = true;
                     }
                 }
@@ -51,17 +55,19 @@ public class Practica17_UF4_PabloJimenez {
                     if (!espectacle) {
                         System.out.println("Per crear una representacio primer has de donar d'alta un espectacle");
                     } else {
-                        altaRepresentacio();
+                        rep.altaRepresentacio();
                     }
                 }
                 case 4 -> {
-                    //Fer reserva
+                    rep.ferReserva();
                 }
                 case 5 -> {
                     if (!espectacle) {
                         System.out.println("No hi ha espectacles disponibles");
                     }
-                    llistarEspectacles();
+                    System.out.println("Quin dia? Format(DD/MM)");
+                    String dia = scan.next();
+                    rep.llistarRepresentacions(dia);
                 }
                 case 6 -> {
                     sortir = true;
@@ -76,180 +82,8 @@ public class Practica17_UF4_PabloJimenez {
 
     }
 
-    public static void altaRecinte() {
-        String recinte = "";
-        String nom = "";
-        int localitats;
-        int llotja;
-        Recinte r = null;
-        int opcio;
-        System.out.print("Nom del recinte: ");
-        nom = scan.next();
-
-        System.out.println("Tipus del recinte: ");
-        do {
-            opcio = Utils.LlegirInt("""
-                               1. Liceu
-                               2. Teatre 
-                               3. Palau d'esports 
-                               """);
-        } while (!(opcio < 3 || opcio > 0));
-        if (opcio == 1) {
-            recinte = "Liceu";
-        } else if (opcio == 2) {
-            recinte = "Teatre";
-        } else {
-            recinte = "Palau d'esports";
-        }
-
-        localitats = Utils.LlegirInt("Quantes files te aquest recinte: ");
-        llotja = Utils.LlegirInt("Quantes llotges te aquest recinte: ");
-
-        r = new Recinte(nom, recinte, localitats, llotja);
-        recintes.add(r);
-    }
-
-    public static void altaEspectacle() {
-        String espectacle = "";
-        boolean llotges = false;
-        boolean butaques = false;
-        Espectacle es = null;
-        int opcio;
-
-        System.out.println("Tipus d' espectacle ");
-        do {
-            opcio = Utils.LlegirInt("""
-                               1. Pelicula
-                               2. Obra Teatral
-                               3. Opera 
-                               4. Prova d'esports 
-                               """);
-        } while (!(opcio < 4 && opcio > 0));
-        if (opcio == 1) {
-            espectacle = "Pelicula";
-            butaques = true;
-        } else if (opcio == 2) {
-            espectacle = "Obra Teatral";
-            llotges = true;
-            butaques = true;
-        } else if (opcio == 3) {
-            espectacle = "Opera";
-            llotges = true;
-            butaques = true;
-        } else {
-            espectacle = "Prova d'esports";
-            llotges = true;
-        }
-        es = new Espectacle(espectacle, llotges, butaques);
-        espectacles.add(es);
-
-    }
-
-    public static void altaRepresentacio() {
-        Espectacle es = null;
-        Recinte r = null;
-        Representacio rep = null;
-        boolean encontrado = false;
-
-        System.out.print("Nom de la representacio: ");
-        String nom = scan.next();
-
-        System.out.print("Quin espectacle? ");
-        do {
-            String espectacle = scan.next();
-            for (int i = 0; i < espectacles.size(); i++) {
-                if (espectacles.get(i).getTipus().equals(espectacle)) {
-                    es = espectacles.get(i);
-                    encontrado = true;
-                } else if (!encontrado) {
-                    System.out.println("No s'ha trobat cap espectacle d'aquest tipus ");
-                }
-            }
-        } while (!encontrado);
-
-        encontrado = false;
-
-        System.out.print("Quin recinte? ");
-        do {
-            String recinte = scan.next();
-            for (int i = 0; i < recintes.size(); i++) {
-                if (recintes.get(i).getNom().equals(recinte)) {
-                    r = recintes.get(i);
-                    encontrado = true;
-                } else if (!encontrado) {
-                    System.out.println("No s'ha trobat cap recinte amb aquest nom ");
-                }
-            }
-        } while (!encontrado);
-
-        System.out.println("Quin dia? ");
-        String dia = scan.next();
-
-        rep = new Representacio(nom, es, r, dia);
-
-    }
-
-   public static void ferReserva() {
-    Representacio rep = null;
-    boolean encontrado = false;
-    int opcio;
-
-    System.out.print("Quina representacio? ");
-    do {
-        String nom = scan.next();
-        for (int i = 0; i < representacions.size(); i++) {
-            if (representacions.get(i).getNom().equals(nom)) {
-                rep = representacions.get(i);
-                encontrado = true;
-            } else if (!encontrado) {
-                System.out.println("No s'ha trobat cap espectacle amb aquest nom ");
-            }
-        }
-    } while (!encontrado);
-
-    
-    if (rep != null) {
-        int llotjesDisponibles = rep.getRecinte().getLlotja();
-        int butaquesDisponibles = rep.getRecinte().getLocalitats();
-
-        // Resto la cantidad de llotjes o localitats reservadas
-        if (!rep.getEspectacle().isButaques()) {
-            int llotja = Utils.LlegirInt("Quantes llotges vols reservar: ");
-            llotjesDisponibles -= llotja;
-        } else if (!rep.getEspectacle().isLlotges()) {
-            int localitats = Utils.LlegirInt("Quantes localitats vols reservar: ");
-            butaquesDisponibles -= localitats;
-        } else {
-            do {
-                opcio = Utils.LlegirInt("Que vols reservar: 1. Llotja 2. Localitats");
-                if (opcio == 1) {
-                    int llotja = Utils.LlegirInt("Quantes llotges vols reservar: ");
-                    llotjesDisponibles -= llotja;
-                } else if (opcio == 2) {
-                    int localitats = Utils.LlegirInt("Quantes localitats vols reservar: ");
-                    butaquesDisponibles -= localitats;
-                }
-            } while (opcio != 1 || opcio != 2);
-
-        }
-
-        
-        rep.getRecinte().setLlotja(llotjesDisponibles);
-        rep.getRecinte().setLocalitats(butaquesDisponibles);
-
-        
-        int index = representacions.indexOf(rep);
-        representacions.set(index, rep);
-
-        System.out.println("S'ha reservat correctament.");
-    } else {
-        System.out.println("No s'ha trobat cap representacio amb aquest nom.");
-    }
-}
-
-
     public static void llistarEspectacles() {
-
+        
     }
 
 }
