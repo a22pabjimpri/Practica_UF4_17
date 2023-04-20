@@ -32,7 +32,7 @@ public class Practica17_UF4_PabloJimenez {
                                4. Fer una reserva 
                                5. Llistar espectacles per data
                                6. Sortir""");
-            int opcio = Utils.LlegirInt("Selecciona una opciÃ³: ");
+            int opcio = Utils.LlegirInt("Selecciona una opcio: ");
 
             switch (opcio) {
                 case 1 -> {
@@ -55,7 +55,7 @@ public class Practica17_UF4_PabloJimenez {
                     }
                 }
                 case 4 -> {
-                    //Fer reserva
+                    ferReserva();
                 }
                 case 5 -> {
                     if (!espectacle) {
@@ -184,7 +184,7 @@ public class Practica17_UF4_PabloJimenez {
             }
         } while (!encontrado);
 
-        System.out.println("Quin dia? ");
+        System.out.println("Quin dia? Format[DD/MM] ");
         String dia = scan.next();
 
         rep = new Representacio(nom, es, r, dia);
@@ -253,17 +253,13 @@ public class Practica17_UF4_PabloJimenez {
 
             }
 
-            // Actualizar la información en la representación
+
             rep.getRecinte().setLlotja(llotjesDisponibles);
             rep.getRecinte().localitats = butaquesDisponibles;
 
-            // Actualizar la representación en el ArrayList
             int index = representacions.indexOf(rep);
             representacions.set(index, rep);
-
-            System.out.println("S'ha actualitzat la representació exitosament.");
-        } else {
-            System.out.println("No s'ha trobat cap representació amb aquest nom.");
+            System.out.println("S'ha reservat exitosament.");
         }
     }
 
@@ -271,7 +267,7 @@ public class Practica17_UF4_PabloJimenez {
         boolean encontrado = false;
         Representacio rep = null;
 
-         System.out.print("Quin dia? Format[DD/MM] ");
+        System.out.print("Quin dia? Format[DD/MM] ");
         do {
             String dia = scan.next();
             for (int i = 0; i < representacions.size(); i++) {
