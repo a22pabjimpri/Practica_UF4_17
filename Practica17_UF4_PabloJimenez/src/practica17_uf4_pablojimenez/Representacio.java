@@ -9,17 +9,18 @@ package practica17_uf4_pablojimenez;
  * @author ausias
  */
 public class Representacio {
-
     String nom;
     Espectacle espectacle;
     Recinte recinte;
     String data;
+    
 
     public Representacio(String nom, Espectacle espectacle, Recinte recinte, String data) {
         this.nom = nom;
         this.espectacle = espectacle;
         this.recinte = recinte;
         this.data = data;
+        
     }
 
     public String getNom() {
@@ -53,10 +54,18 @@ public class Representacio {
     public void setData(String data) {
         this.data = data;
     }
-
-    @Override
+    
+   @Override
     public String toString() {
         return "Dia: " + data + ", Recinte: " + recinte.getNom() + ", Espectacle: " + espectacle.getTipus();
     }
+    
+    
 
+    
+    
+    
+    
+    
+    
 }
